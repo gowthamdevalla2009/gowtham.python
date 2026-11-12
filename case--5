@@ -1,0 +1,29 @@
+
+plans = [
+    {"name": "Basic", "price": 199, "data": 2, "days": 28},
+    {"name": "Smart", "price": 299, "data": 3, "days": 56},
+    {"name": "Premium", "price": 499, "data": 5, "days": 84}
+]
+
+usage = float(input("Expected data usage (GB): "))
+validity = int(input("Required validity (days): "))
+budget = float(input("Budget: "))
+
+eligible = []
+
+for p in plans:
+    excess = max(0, usage - p["data"])
+    extra_charge = excess * 50
+    total = p["price"] + extra_charge
+
+    print(p["name"], "Total cost:", total)
+
+    if p["days"] >= validity and total <= budget:
+        eligible.append((total, p["name"]))
+
+if eligible:
+    eligible.sort()
+    print("Best plan:", eligible[0][1])
+    print("Total cost:", eligible[0][0])
+else:
+    print("No plan satisfies all requirements")

@@ -1,0 +1,32 @@
+Python 3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)] on win32
+Enter "help" below or click "Help" above for more information.
+>>> 
+... applicants = []
+... 
+... n = int(input("Enter number of applicants: "))
+... 
+... for i in range(n):
+...     print("\nApplicant", i + 1)
+...     name = input("Enter name: ")
+...     marks = float(input("Aggregate marks (%): "))
+...     subject = float(input("Minimum subject marks (%): "))
+...     attendance = float(input("Attendance (%): "))
+...     income = float(input("Family annual income: "))
+... 
+...     if (marks >= 75 and subject >= 60
+...             and attendance >= 75 and income <= 250000):
+...         applicants.append(
+...             (name, marks, attendance, subject)
+...         )
+... 
+... applicants.sort(key=lambda x: (x[1], x[2], x[3]),
+...                 reverse=True)
+... 
+... print("\nScholarship Ranking")
+... if not applicants:
+...     print("No eligible applicants")
+... else:
+...     for rank, student in enumerate(applicants, 1):
+...         print(rank, student[0],
+...               "Marks:", student[1],
+...               "Attendance:", student[2])

@@ -1,0 +1,31 @@
+
+basic = float(input("Basic salary: "))
+allowances = float(input("Allowances: "))
+overtime = float(input("Overtime payment: "))
+incentives = float(input("Incentives: "))
+
+if min(basic, allowances, overtime, incentives) < 0:
+    print("Invalid salary details")
+else:
+    gross = basic + allowances + overtime + incentives
+
+    # Sample progressive deduction policy
+    if gross <= 20000:
+        deduction = gross * 0.05
+    elif gross <= 50000:
+        deduction = 20000 * 0.05 + (gross - 20000) * 0.10
+    else:
+        deduction = (20000 * 0.05
+                     + 30000 * 0.10
+                     + (gross - 50000) * 0.15)
+
+    net = gross - deduction
+
+    print("\n----- SALARY STATEMENT -----")
+    print("Basic salary:", basic)
+    print("Allowances:", allowances)
+    print("Overtime:", overtime)
+    print("Incentives:", incentives)
+    print("Gross salary:", round(gross, 2))
+    print("Deductions:", round(deduction, 2))
+    print("Net salary:", round(net, 2))

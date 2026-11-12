@@ -1,0 +1,29 @@
+
+distance = float(input("Travel distance (km): "))
+travel_class = input("Class (sleeper/AC): ").lower()
+age = int(input("Passenger age: "))
+cancel = input("Cancel ticket? (yes/no): ").lower()
+
+if distance <= 0 or age < 0:
+    print("Invalid input")
+elif travel_class not in ("sleeper", "ac"):
+    print("Invalid class")
+else:
+    # Sample fare: ₹1.00/km for sleeper
+    # and ₹1.80/km for AC
+    rate = 1.0 if travel_class == "sleeper" else 1.8
+    base = distance * rate
+
+    concession = 0.20 * base if age >= 60 else 0
+    reservation = 40 if travel_class == "sleeper" else 80
+    fare = base - concession + reservation
+
+    if cancel == "yes":
+        penalty = fare * 0.25
+        fare = fare - penalty
+        print("Cancellation penalty:", round(penalty, 2))
+
+    print("Base fare:", round(base, 2))
+    print("Concession:", round(concession, 2))
+    print("Reservation fee:", reservation)
+    print("Final fare:", round(fare, 2))

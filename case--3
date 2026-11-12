@@ -1,0 +1,38 @@
+
+consultation = float(input("Consultation charge: "))
+diagnostics = float(input("Diagnostic charge: "))
+treatment = float(input("Treatment charge: "))
+category = input("Patient category (senior/regular): ").lower()
+paid = float(input("Amount paid: "))
+
+if consultation < 0 or diagnostics < 0 or treatment < 0:
+    print("Invalid charges")
+elif paid < 0:
+    print("Invalid payment")
+else:
+    total = consultation + diagnostics + treatment
+
+    if category == "senior":
+        concession = total * 0.10
+    else:
+        concession = 0
+
+    final_bill = total - concession
+
+    if paid > final_bill:
+        print("Payment exceeds bill")
+    else:
+        balance = final_bill - paid
+
+        if balance == 0:
+            status = "Fully Paid"
+        elif paid > 0:
+            status = "Partially Paid"
+        else:
+            status = "Unpaid"
+
+        print("Total charges:", round(total, 2))
+        print("Concession:", round(concession, 2))
+        print("Final bill:", round(final_bill, 2))
+        print("Balance:", round(balance, 2))
+        print("Payment status:", status)

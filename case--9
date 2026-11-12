@@ -1,0 +1,39 @@
+
+budget = float(input("Travel budget in INR: "))
+n = int(input("Number of expense categories: "))
+
+expenses = {}
+total = 0
+
+for i in range(n):
+    category = input("Expense category: ")
+    amount = float(input("Amount in foreign currency: "))
+    rate = float(input("Exchange rate (INR per unit): "))
+    fee_percent = float(input("Conversion fee percentage: "))
+
+    if amount < 0 or rate <= 0 or not 0 <= fee_percent <= 100:
+        print("Invalid expense; skipping")
+        continue
+
+    converted = amount * rate
+    fee = converted * fee_percent / 100
+    final_amount = converted + fee
+
+    expenses[category] = expenses.get(category, 0) + final_amount
+    total += final_amount
+
+    print("Converted amount:", round(converted, 2))
+    print("Conversion fee:", round(fee, 2))
+
+print("\nTotal spending:", round(total, 2))
+print("Budget:", round(budget, 2))
+
+if total > budget:
+    print("Over budget by:", round(total - budget, 2))
+else:
+    print("Remaining budget:", round(budget - total, 2))
+
+if expenses:
+    largest = max(expenses, key=expenses.get)
+    print("Largest expense category:", largest)
+    print("Amount:", round(expenses[largest], 2))

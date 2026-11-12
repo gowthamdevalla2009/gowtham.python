@@ -1,0 +1,32 @@
+
+quantity = int(input("Units to produce: "))
+material_rate = float(input("Material cost per unit: "))
+wastage = float(input("Wastage percentage: "))
+labour = float(input("Total labour cost: "))
+machine = float(input("Machine cost: "))
+selling_price = float(input("Selling price per unit: "))
+target = float(input("Target profit percentage: "))
+
+if (quantity <= 0 or material_rate < 0 or
+        not 0 <= wastage <= 100 or labour < 0 or
+        machine < 0 or selling_price < 0 or target < 0):
+    print("Invalid input")
+else:
+    material = quantity * material_rate
+    wastage_cost = material * wastage / 100
+    total_cost = material + wastage_cost + labour + machine
+    revenue = quantity * selling_price
+    profit = revenue - total_cost
+    profit_percent = profit / total_cost * 100 if total_cost > 0 else 0
+
+    print("Material cost:", round(material, 2))
+    print("Wastage cost:", round(wastage_cost, 2))
+    print("Total production cost:", round(total_cost, 2))
+    print("Revenue:", round(revenue, 2))
+    print("Profit/Loss:", round(profit, 2))
+    print("Profit percentage:", round(profit_percent, 2), "%")
+
+    if profit_percent >= target:
+        print("Target achieved")
+    else:
+        print("Target not achieved")

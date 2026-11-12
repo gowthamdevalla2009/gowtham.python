@@ -1,0 +1,47 @@
+
+venue = float(input("Venue cost: "))
+equipment = float(input("Equipment cost: "))
+catering = float(input("Catering cost per participant: "))
+transport = float(input("Total transport cost: "))
+certificates = float(input("Certificate cost per participant: "))
+
+sponsorship = float(input("Sponsorship amount: "))
+fee = float(input("Registration fee per participant: "))
+expected = int(input("Expected number of participants: "))
+
+if (min(venue, equipment, catering, transport,
+        certificates, sponsorship, fee) < 0
+        or expected < 0):
+    print("Invalid input")
+else:
+    fixed_cost = venue + equipment + transport
+    variable_cost = catering + certificates
+    total_cost = fixed_cost + variable_cost * expected
+
+    sponsorship_used = min(sponsorship, total_cost)
+    shortfall = max(0, total_cost - sponsorship_used)
+
+    print("\n----- EVENT BUDGET REPORT -----")
+    print("Fixed costs:", round(fixed_cost, 2))
+    print("Total event cost:", round(total_cost, 2))
+    print("Sponsorship:", round(sponsorship, 2))
+    print("Funding shortfall:", round(shortfall, 2))
+
+    contribution = fee - variable_cost
+
+    if contribution > 0:
+        remaining_fixed = max(0, fixed_cost - sponsorship)
+        minimum = max(0, int(
+            __import__("math").ceil(
+                remaining_fixed / contribution
+            )
+        ))
+        print("Minimum registrations:", minimum)
+
+        if expected >= minimum:
+            print("Break-even target achieved")
+        else:
+            print("More registrations required:",
+                  minimum - expected)
+    else:
+        print("Registration fee must exceed variable cost")
